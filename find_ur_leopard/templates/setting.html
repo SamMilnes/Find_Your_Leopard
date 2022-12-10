@@ -17,19 +17,44 @@
 </head>
 
 <body>
+        <header>
+                <div class="header_inner">
+                    <div class="left-side">
+                        <b>Welcome {{user_profile.user.username}}!</b>
+                    </div>
+                    <div class="right-side lg:pr-4">
+                        <a href="/">
+                            Community Feed
+                        </a>
+                        <div style="width:50px"></div>
+                        <a href="/roommate_feed">
+                            Roommate Feed
+                        </a>
+                        <div style="width:50px"></div>
+                        <a href="#">
+                            <img src="{{user_profile.profileimg.url}}" class="header-avatar" alt="">
+                        </a>
+                        <div uk-drop="mode: click;offset:9" class="header_dropdown profile_dropdown border-t">
+                            <ul>
+                                <li><a href="/settings"> Account settings</a> </li>
+                                <li><a href="logout"> Log Out</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </header>
 
             <div class="container m-auto"> 
 
-                <h1 class="text-2xl leading-none text-gray-900 tracking-tight mt-3"><a href="/">Home / Account Setting For <b>{{user.username}}</b></a> </h1>
+                <h1 class="text-2xl leading-none text-gray-900 tracking-tight mt-3"><a >General / Account Settings For {{user.username}}</b></a> </h1>
                 </ul>
                 <br>
                 <hr>
-                <br>
 
-
-                <div class="grid lg:grid-cols-3 mt-12 gap-8">
+                <div class="grid lg:grid-cols-2 mt-12 gap-8">
                     <div>
-                        <h3 class="text-xl mb-2">General</h3>
+<!--                        <h3 class="text-xl mb-2">General</h3>-->
                         <p></p>
                     </div>
                     <div class="bg-white rounded-md lg:shadow-lg shadow col-span-2">

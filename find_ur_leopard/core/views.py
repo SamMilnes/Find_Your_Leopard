@@ -144,6 +144,9 @@ def upload(request):
         user = request.user.username
         caption = request.POST.get('caption')
 
+        if caption == '':
+            return redirect('/')
+
         new_post = Post.objects.create(user=user, caption=caption)
 
         new_post.save()

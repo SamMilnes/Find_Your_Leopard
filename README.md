@@ -5,8 +5,13 @@ This is our software engineering final project
 You must have Python, Pip, and Virtual Enviroment installed on your computer.
 
 Python - https://www.python.org/downloads/
+
+
 Virtual Enviroment - https://pypi.org/project/virtualenv/
+
+
 Pip - https://pip.pypa.io/en/stable/cli/pip_install/
+
 
 * Download this project as a zip file and save to your place of liking
 * After downloading open your terminal or command prompt and cd into the project folder

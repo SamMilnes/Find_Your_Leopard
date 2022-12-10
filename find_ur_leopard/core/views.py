@@ -24,6 +24,11 @@ def signup(request):
         password = request.POST['password']
         password2 = request.POST['password2']
 
+        if '@wit' not in email:
+            messages.info(request, 'Not a Wentworth Email')
+            return redirect('signup')
+            # return redirect('signup.html')
+
         if password == password2:
             if User.objects.filter(email=email).exists():
                 messages.info(request, "This Email Has Already Been Taken")

@@ -88,11 +88,22 @@ def settings(request):
             bio = request.POST.get('bio')
             location = request.POST.get('location')
             gender = request.POST.get('gender')
+            age = request.POST.get('age')
+            sleeping_habits = request.POST.get('sleeping_habits')
+            number_of_roommates = request.POST.get('number_of_roommates')
+            personality_types = request.POST.get('personality_types')
+            interests = request.POST.get('interests')
 
             user_profile.profileimg = image
             user_profile.bio = bio
             user_profile.location = location
             user_profile.gender = gender
+            user_profile.age = age
+            user_profile.sleeping_habits = sleeping_habits
+            user_profile.number_of_roommates = number_of_roommates
+            user_profile.personality_types = personality_types
+            user_profile.interests = interests
+
             user_profile.save()
 
         if request.FILES.get('image') != None:
@@ -100,11 +111,22 @@ def settings(request):
             bio = request.POST.get('bio')
             location = request.POST.get('location')
             gender = request.POST.get('gender')
+            age = request.POST.get('age')
+            sleeping_habits = request.POST.get('sleeping_habits')
+            number_of_roommates = request.POST.get('number_of_roommates')
+            personality_types = request.POST.get('personality_types')
+            interests = request.POST.get('interests')
 
             user_profile.profileimg = image
             user_profile.bio = bio
             user_profile.location = location
             user_profile.gender = gender
+            user_profile.age = age
+            user_profile.sleeping_habits = sleeping_habits
+            user_profile.number_of_roommates = number_of_roommates
+            user_profile.personality_types = personality_types
+            user_profile.interests = interests
+
             user_profile.save()
 
         return redirect('/')
@@ -168,11 +190,11 @@ def profile(request, pk):
         'user_object': user_object,
         'user_profile': user_profile,
         'user_community_posts_len': user_community_posts_len,
+        'user_roommate_posts': user_roommate_posts,
         'user_roommate_posts_len': user_roommate_posts_len
     }
 
     return render(request, 'profile.html', context)
-
 
 # @login_required(login_url='signin')
 # def delete_post(request):

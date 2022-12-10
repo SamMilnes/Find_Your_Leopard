@@ -26,7 +26,7 @@
 
 	<section>
 			<div class="feature-photo">
-				<figure><img height="100" src="{% static 'images/resources/5194_T_header.jpg' %}" alt=""></figure>
+				<figure><img height="100" src="{% static 'images/resources/timeline-1.jpg' %}" alt=""></figure>
 				<form action="/follow" method="POST">
 					{% csrf_token %}
 					<div class="add-btn">
@@ -65,7 +65,7 @@
 							<div class="timeline-info">
 								<ul>
 									<li class="admin-name">
-									  <h5 style="color: black;white-space: nowrap; width: 110px; font-size: 27px;"><b>@{{user_profile.user.email}}</b><!--<i class="fa fa-check-circle" style="color: #48dbfb;" aria-hidden="true"></i>--></h5>
+									  <h5 style="color: black;white-space: nowrap; width: 110px; font-size: 27px;"><b>@{{user_profile.user.username}}</b><!--<i class="fa fa-check-circle" style="color: #48dbfb;" aria-hidden="true"></i>--></h5>
 									  <!--<span>Group Admin</span>-->
 
 								</ul>
@@ -77,59 +77,77 @@
 		</section><!-- top area -->
 		<section>
 			<div class="bio">
-					{{user_profile.bio}}
+					Bio: {{user_profile.bio}}
+			</div>
+			<div class="bio">
+					Email: {{user_profile.user.email}}
+			</div>
+			<div class="bio">
+					Gender: {{user_profile.gender}}
+			</div>
+			<div class="bio">
+					Off/On Campus: {{user_profile.location}}
+			</div>
+			<div class="bio">
+					Age: {{user_profile.age}}
+			</div>
+			<div class="bio">
+					Sleeping Habits: {{user_profile.sleeping_habits}}
+			</div>
+			<div class="bio">
+					Number of roommates looking for: {{user_profile.number_of_roommates}}
+			</div>
+			<div class="bio">
+					Personality Type: {{user_profile.personality_types}}
+			</div>
+			<div class="bio">
+					Interests: {{user_profile.interests}}
 			</div>
 		</section>
 
 	<section>
 		<div class="gap gray-bg">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="row" id="page-contents">
-							<div class="col-lg-3">
-								<aside class="sidebar static">
+<!--			<div class="container-fluid">-->
+<!--				<div class="row">-->
+<!--					<div class="col-lg-12">-->
+<!--						<div class="row" id="page-contents">-->
+<!--							<div class="col-lg-3">-->
+<!--								<aside class="sidebar static">-->
 
 
 
-								</aside>
-							</div><!-- sidebar -->
+<!--								</aside>-->
+<!--							</div>&lt;!&ndash; sidebar &ndash;&gt;-->
+
+<!--							<div class="col-lg-6">-->
+<!--								<div class="central-meta">-->
+<!--									<ul class="photos">-->
+
+<!--										{% for post in user_roommate_posts %}-->
+<!--										<li>-->
+<!--											<a href="#" class="flex items-center px-3 py-2 text-black-500 rounded-md ">-->
+<!--												{{post.caption}}-->
+<!--											</a>-->
+<!--&lt;!&ndash;											<a class="strip" href="{{post.caption}}" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">&ndash;&gt;-->
+<!--&lt;!&ndash;												<img src="{{post.image.url}}" style="height: 250px; width: 300px;" alt=""></a>&ndash;&gt;-->
+<!--										</li>-->
+<!--										{% endfor %}-->
 
 
 
+<!--									</ul>-->
+<!--									&lt;!&ndash;<div class="lodmore"><button class="btn-view btn-load-more"></button></div>&ndash;&gt;-->
+<!--								</div>&lt;!&ndash; photos &ndash;&gt;-->
+<!--							</div>&lt;!&ndash; centerl meta &ndash;&gt;-->
+<!--							<div class="col-lg-3">-->
+<!--								<aside class="sidebar static">-->
 
-
-
-
-
-
-
-							<div class="col-lg-6">
-								<div class="central-meta">
-									<ul class="photos">
-
-										{% for post in user_posts %}
-										<li>
-											<a class="strip" href="{{post.image.url}}" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
-												<img src="{{post.image.url}}" style="height: 250px; width: 300px;" alt=""></a>
-										</li>
-										{% endfor %}
-
-
-
-									</ul>
-									<!--<div class="lodmore"><button class="btn-view btn-load-more"></button></div>-->
-								</div><!-- photos -->
-							</div><!-- centerl meta -->
-							<div class="col-lg-3">
-								<aside class="sidebar static">
-
-								</aside>
-							</div><!-- sidebar -->
-						</div>
-					</div>
-				</div>
-			</div>
+<!--								</aside>-->
+<!--							</div>&lt;!&ndash; sidebar &ndash;&gt;-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
 		</div>
 	</section>
 

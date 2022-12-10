@@ -13,6 +13,11 @@ class Profile(models.Model):
     gender = models.TextField(blank=True)
     location = models.TextField(blank=True)
     profileimg = models.ImageField(upload_to='profile_images', default='blank-profile-picture.png')
+    age = models.TextField(blank=True)
+    sleeping_habits = models.TextField(blank=True)
+    number_of_roommates = models.TextField(blank=True)
+    personality_types = models.TextField(blank=True)
+    interests = models.TextField(blank=True)
 
     def __str__(self):
         return self.user.username

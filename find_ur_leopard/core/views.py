@@ -12,7 +12,7 @@ def index(request):
 
     user_profile = Profile.objects.get(user=user_object)
 
-    posts = Post.objects.all()
+    posts = Post.objects.all().order_by('-created_at')
 
     return render(request, 'index.html', {'user_profile': user_profile, 'posts': posts})
 
@@ -177,6 +177,7 @@ def upload(request):
         new_post = Post.objects.create(user=user, caption=caption)
 
         new_post.save()
+
 
         return redirect('/')
 

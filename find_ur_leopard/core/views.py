@@ -32,10 +32,10 @@ def signup(request):
         if password == password2:
             if User.objects.filter(email=email).exists():
                 messages.info(request, "This Email Has Already Been Taken")
-                return redirect('signup.html')
+                return redirect('signup')
             elif User.objects.filter(username=username).exists():
                 messages.info(request, "This Username Has Already Been Taken")
-                return redirect('signup.html')
+                return redirect('signup')
             else:
                 user = User.objects.create_user(username=username, email=email, password=password)
                 user.save()

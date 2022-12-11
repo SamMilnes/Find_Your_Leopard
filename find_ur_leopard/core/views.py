@@ -17,6 +17,33 @@ def index(request):
     return render(request, 'index.html', {'user_profile': user_profile, 'posts': posts})
 
 
+# @login_required(login_url='signin')
+# def edit_community_post(request):
+#     user_object = User.objects.get(username=request.user.username)
+#     user_profile = Profile.objects.get(user=user_object)
+#
+#     if request.method == 'POST':
+
+
+@login_required(login_url='signin')
+def delete_comm_post(request, pk):
+    user_object = User.objects.get(username=request.user.username)
+    # user_profile = Profile.objects.get(user=user_object)
+    post = Post.objects.get(id=pk)
+
+    if request.method == 'GET':
+        user = request.user.username
+
+        if user != post.user:
+            return redirect('/')
+        else:
+            post.delete()
+
+        return redirect('/')
+    else:
+        print('broken')
+
+
 def signup(request):
     if request.method == 'POST':
         username = request.POST['username']

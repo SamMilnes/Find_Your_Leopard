@@ -10,5 +10,6 @@ urlpatterns = [
     path('upload', views.upload, name='upload'),
     path('profile/<str:pk>', views.profile, name='profile'),
     path('roommate_feed', views.roommate_feed, name='roommate_feed'),
-    path('roommate_upload', views.roommate_upload, name='roommate_upload')
+    path('roommate_upload', views.roommate_upload, name='roommate_upload'),
+    path('delete_comm_post/<str:pk>', views.delete_comm_post, name='delete_comm_post')
 ]

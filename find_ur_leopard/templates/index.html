@@ -78,11 +78,13 @@
 
 <!--                                    <span class="block capitalize font-semibold "> @ {{post.user}} </span>-->
                                 </div>
+
                               <div>
                                 <a href="#"> <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 "></i> </a>
                                 <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100  " uk-drop="mode: hover;pos: top-right">
-                              
+                                    {% if post.user == user_profile.user.username %}
                                     <ul class="space-y-1">
+
                                       <li> 
                                           <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md ">
                                            <i class="uil-edit-alt mr-1"></i>  Edit Post 
@@ -91,23 +93,31 @@
                                       <li>
                                         <hr class="-mx-2 my-2 ">
                                       </li>
-                                      <li> 
-                                          <a href="#" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md ">
+
+                                      <li>
+                                          <a href="{% url 'delete_comm_post' post.id %}" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md ">
                                            <i class="uil-trash-alt mr-1"></i>  Delete
-                                          </a> 
+                                          </a>
                                       </li>
+                                        {% endif %}
                                     </ul>
-                                
+
                                 </div>
                               </div>
                             </div>
-    
+                            <hr>
                             <div>
-                                <a href="#" class="flex items-center px-3 py-2 text-black-500 rounded-md ">
+                                <a class="flex items-center px-3 py-2 text-black-500 rounded-md ">
                                     {{post.caption}}
                                 </a>
                             </div>
                             <br>
+                            <hr>
+                            <div>
+                                <a class="flex items-center px-3 py-2 text-black-500 rounded-md ">
+                                    {{post.created_at}}
+                                </a>
+                            </div>
                         </div>
                         {% endfor %}
                     </div>

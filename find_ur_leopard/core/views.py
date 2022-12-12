@@ -1,10 +1,16 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from .models import Profile, Post, Roommate_Post
 from django.contrib.auth.decorators import login_required
 import string
+
+
+'''
+This is our view for the community feed
+- It will grab the user who is logged in
+- It will grab all the the posts created by everyone, which then gets passed into the community feed view
+'''
 
 
 @login_required(login_url='signin')
@@ -18,18 +24,17 @@ def index(request):
     return render(request, 'index.html', {'user_profile': user_profile, 'posts': posts})
 
 
-# @login_required(login_url='signin')
-# def edit_community_post(request):
-#     user_object = User.objects.get(username=request.user.username)
-#     user_profile = Profile.objects.get(user=user_object)
-#
-#     if request.method == 'POST':
+'''
+This is our view for being able to delete a community post
+- It will grab the user who is logged in
+- If the user logged in created the community post, it gives them the ability to delete said post
+'''
 
 
 @login_required(login_url='signin')
 def delete_comm_post(request, pk):
     user_object = User.objects.get(username=request.user.username)
-    # user_profile = Profile.objects.get(user=user_object)
+
     post = Post.objects.get(id=pk)
 
     if request.method == 'GET':
@@ -43,6 +48,13 @@ def delete_comm_post(request, pk):
         return redirect('/')
     else:
         print('broken')
+
+
+'''
+This is our view for being able to delete a roommate post
+- It will grab the user who is logged in
+- If the user logged in created the roommate post, it gives them the ability to delete said post
+'''
 
 
 @login_required(login_url='signin')
@@ -63,6 +75,12 @@ def delete_room_post(request, pk):
         print('broken')
 
 
+'''
+This is our view for a user being able to sign up
+This is how all of the user information is stored when the user signs up for the application
+'''
+
+
 def signup(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -70,11 +88,13 @@ def signup(request):
         password = request.POST['password']
         password2 = request.POST['password2']
 
+        # Check to make sure the user has a wit email
         if '@wit' not in email:
             messages.info(request, 'Not a Wentworth Email')
             return redirect('signup')
             # return redirect('signup.html')
 
+        # Check to make sure the users password is at least 8 characters
         if len(password) < 8:
             messages.info(request, 'Password must be at least 8 characters')
             return redirect('signup')
@@ -82,14 +102,18 @@ def signup(request):
         numbers = set(list(string.digits))
         chars = set(list(password))
 
+        # Check to see that the users password has at least one numerical character
         if not numbers.intersection(chars):
             messages.info(request, 'Password must contain at least one number')
             return redirect('signup')
 
+        # Check to make sure that the users password and repeated password both match
         if password == password2:
+            # Check to make sure the email is not already in use in the database
             if User.objects.filter(email=email).exists():
                 messages.info(request, "This Email Has Already Been Taken")
                 return redirect('signup')
+            # Check to make sure the username is not already in use in the database
             elif User.objects.filter(username=username).exists():
                 messages.info(request, "This Username Has Already Been Taken")
                 return redirect('signup')
@@ -115,11 +139,17 @@ def signup(request):
         return render(request, 'signup.html')
 
 
+'''
+This is our view for a user being able to sign in
+'''
+
+
 def signin(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
 
+        # Authenticating the user from the database and login information
         user = auth.authenticate(username=username, password=password)
 
         if user is not None:
@@ -133,10 +163,21 @@ def signin(request):
         return render(request, 'signin.html')
 
 
+
+'''
+This is our view for a user being able to sign out of the application
+'''
+
+
 @login_required(login_url='signin')
 def logout(request):
     auth.logout(request)
     return redirect('signin')
+
+
+'''
+This is our view for a user being able to create there own profile, including bio, gender, etc...
+'''
 
 
 @login_required(login_url='signin')
@@ -144,7 +185,7 @@ def settings(request):
     user_profile = Profile.objects.get(user=request.user)
 
     if request.method == 'POST':
-
+        # if the user does not select a image for their profile, use the default image
         if request.FILES.get('image') == None:
             image = user_profile.profileimg
             bio = request.POST.get('bio')
@@ -189,23 +230,33 @@ def settings(request):
             user_profile.personality_types = personality_types
             user_profile.interests = interests
 
+            # Saving user information in the database
             user_profile.save()
 
         return redirect('/')
     return render(request, 'setting.html', {'user_profile': user_profile})
 
 
+'''
+This is our view for a user being able to create a community post
+'''
+
+
 @login_required(login_url='signin')
 def upload(request):
     if request.method == 'POST':
+
+        # Grabbing the user and caption of the post
         user = request.user.username
         caption = request.POST.get('caption')
 
+        # Check to make sure the user does not upload a blank post
         if caption == '':
             return redirect('/')
 
         new_post = Post.objects.create(user=user, caption=caption)
 
+        # Saving new post in the database
         new_post.save()
 
         return redirect('/')
@@ -214,34 +265,57 @@ def upload(request):
         return redirect('/')
 
 
+'''
+This is our view for the roommate feed
+- It will grab the user who is logged in
+- It will grab all the the roommate posts created by everyone, which then gets passed into the roommate feed view
+'''
+
+
 @login_required(login_url='signin')
 def roommate_feed(request):
+    # Getting user profile
     user_object = User.objects.get(username=request.user.username)
 
     user_profile = Profile.objects.get(user=user_object)
 
+    # Grabbing all roommate posts
     posts = Roommate_Post.objects.all().order_by('-created_at')
 
     return render(request, 'roommate_feed.html', {'user_profile': user_profile, 'posts': posts})
 
 
+'''
+This is our view for a user being able to create a roommate post
+'''
+
+
 @login_required(login_url='signin')
 def roommate_upload(request):
     if request.method == 'POST':
+        # Getting user
         user = request.user.username
+        # Getting post caption
         caption = request.POST.get('caption')
 
+        # Check to make sure the user does not upload a blank post
         if caption == '':
             return redirect('/')
 
         new_post = Roommate_Post.objects.create(user=user, caption=caption)
 
+        # Saving post in the database
         new_post.save()
 
         return redirect('/roommate_feed')
 
     else:
         return redirect('/roommate_feed')
+
+
+'''
+This is our view for the user profiles
+'''
 
 
 def profile(request, pk):
@@ -254,6 +328,7 @@ def profile(request, pk):
     user_roommate_posts = Roommate_Post.objects.filter(user=pk)
     user_roommate_posts_len = len(user_roommate_posts)
 
+    # Passing in all user profile information
     context = {
         'user_object': user_object,
         'user_profile': user_profile,
@@ -264,19 +339,3 @@ def profile(request, pk):
 
     return render(request, 'profile.html', context)
 
-# @login_required(login_url='signin')
-# def delete_post(request):
-#     if request.method == 'POST':
-#         user = request.user.username
-#         id = request.POST.get('id')
-#
-#         post_to_delete = Post.objects.delete(user=user, id=id)
-#
-#         post_to_delete.save()
-#
-#         # need to update model and views to correspond with user deleting specific post, must be updated
-#
-#         return redirect('/')
-#
-#     else:
-#         return redirect('/')

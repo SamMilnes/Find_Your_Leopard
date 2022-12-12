@@ -4,6 +4,7 @@ from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from .models import Profile, Post, Roommate_Post
 from django.contrib.auth.decorators import login_required
+import string
 
 
 @login_required(login_url='signin')
@@ -73,6 +74,17 @@ def signup(request):
             messages.info(request, 'Not a Wentworth Email')
             return redirect('signup')
             # return redirect('signup.html')
+
+        if len(password) < 8:
+            messages.info(request, 'Password must be at least 8 characters')
+            return redirect('signup')
+
+        numbers = set(list(string.digits))
+        chars = set(list(password))
+
+        if not numbers.intersection(chars):
+            messages.info(request, 'Password must contain at least one number')
+            return redirect('signup')
 
         if password == password2:
             if User.objects.filter(email=email).exists():

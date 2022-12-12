@@ -82,14 +82,14 @@
                                 <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100  " uk-drop="mode: hover;pos: top-right">
                                     {% if post.user == user_profile.user.username %}
                                     <ul class="space-y-1">
-                                      <li>
-                                          <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md ">
-                                           <i class="uil-edit-alt mr-1"></i>  Edit Post
-                                          </a>
-                                      </li>
-                                      <li>
-                                        <hr class="-mx-2 my-2 ">
-                                      </li>
+<!--                                      <li>-->
+<!--                                          <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md ">-->
+<!--                                           <i class="uil-edit-alt mr-1"></i>  Edit Post-->
+<!--                                          </a>-->
+<!--                                      </li>-->
+<!--                                      <li>-->
+<!--                                        <hr class="-mx-2 my-2 ">-->
+<!--                                      </li>-->
                                       <li>
                                           <a href="{% url 'delete_room_post' post.id %}" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md ">
                                            <i class="uil-trash-alt mr-1"></i>  Delete

@@ -44,6 +44,24 @@ def delete_comm_post(request, pk):
         print('broken')
 
 
+@login_required(login_url='signin')
+def delete_room_post(request, pk):
+    user_object = User.objects.get(username=request.user.username)
+    post = Roommate_Post.objects.get(id=pk)
+
+    if request.method == 'GET':
+        user = request.user.username
+
+        if user != post.user:
+            return redirect('/roommate_feed')
+        else:
+            post.delete()
+
+        return redirect('/roommate_feed')
+    else:
+        print('broken')
+
+
 def signup(request):
     if request.method == 'POST':
         username = request.POST['username']

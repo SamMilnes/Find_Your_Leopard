@@ -29,7 +29,6 @@ class Post(models.Model):
     caption = models.TextField()
     created_at = models.DateTimeField(default=datetime.now)
 
-
     def __str__(self):
         return self.user
 

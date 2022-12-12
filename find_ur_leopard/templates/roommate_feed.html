@@ -97,16 +97,23 @@
                                       </li>
                                     </ul>
                                     {% endif %}
+                                </ul>
                                 </div>
                               </div>
                             </div>
-
+                            <hr>
                             <div>
-                                <a href="#" class="flex items-center px-3 py-2 text-black-500 rounded-md ">
+                                <a class="flex items-center px-3 py-2 text-black-500 rounded-md ">
                                     {{post.caption}}
                                 </a>
                             </div>
                             <br>
+                            <hr>
+                            <div>
+                                <a class="flex items-center px-3 py-2 text-black-500 rounded-md ">
+                                    {{post.created_at}}
+                                </a>
+                            </div>
                         </div>
                         {% endfor %}
                     </div>

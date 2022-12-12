@@ -196,7 +196,6 @@ def upload(request):
 
         new_post.save()
 
-
         return redirect('/')
 
     else:
@@ -209,7 +208,7 @@ def roommate_feed(request):
 
     user_profile = Profile.objects.get(user=user_object)
 
-    posts = Roommate_Post.objects.all()
+    posts = Roommate_Post.objects.all().order_by('-created_at')
 
     return render(request, 'roommate_feed.html', {'user_profile': user_profile, 'posts': posts})
 
@@ -219,6 +218,9 @@ def roommate_upload(request):
     if request.method == 'POST':
         user = request.user.username
         caption = request.POST.get('caption')
+
+        if caption == '':
+            return redirect('/')
 
         new_post = Roommate_Post.objects.create(user=user, caption=caption)
 
